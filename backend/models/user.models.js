@@ -3,8 +3,7 @@ import mongoose from "mongoose";
 const UserSchema = new mongoose.Schema(
     {
         UserId:{
-         type:mongoose.Schema.Types.ObjectId,
-         ref:'User',
+         type:String,
          required:true,
          index:true                 // when we want to search anything index:true help us to find that name so we are using this
         },
@@ -28,17 +27,17 @@ const UserSchema = new mongoose.Schema(
            required:[true,"Password is required"]
         },
         createdAt:{
-            type:mongoose.Schema.Types.ObjectId,
+            type:Date,
             ref:"User",
         },
         updatedAt:{
-            type:mongoose.Schema.Types.ObjectId,
+            type:Date,
             ref:"User",
         },
-        avatar:{
-            type:String,
-            required:true
-        },
+        // avatar:{
+        //     type:String,
+        //     required:true
+        // },
         coverImage:{
              type:String,
         },

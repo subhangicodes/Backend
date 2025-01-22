@@ -33,32 +33,29 @@ const UserRegister = asyncHandler ( async (req,res)=>{
     if(existedUser){
         throw new ApiError(409,"User with email or usename already exists")
     }
-    console.log('Avatar:', req.files?.avatar?.[0]?.path);
+  //  console.log('Avatar:', req.files?.avatar?.[0]?.path);
                                                         // here avtar is nothing but files
-    const avatarLocalpath =req.files?.avatar?.[0]?.path;
+  //  const avatarLocalpath =req.files?.avatar[0]?.path;
     const  coverImageLocalPath = req.files?.coverImage[0]?.path;  
     
-    if (avatarLocalpath === undefined || avatarLocalpath === null || avatarLocalpath === "") {
-        throw new ApiError(400, "Avatar file is required!");
-    }
-    
-    console.log("Avatar Path Passed Validation:", avatarLocalpath);
+    console.log(req.files);
+   
     // here we take 0 beacuse we want first property or the path which is uploaded by the multer 
 
-    if(!avatarLocalpath){
-        throw new ApiError(400,"Avatar file is required!!")
-    }
+  //  if(!avatarLocalpath){
+   //     throw new ApiError(400,"Avatar file is required!!")
+   // }
 
     // upload in cloudnary 
- const avatar = await uploadOnCloudinary(avatarLocalpath)
+ //const avatar = await uploadOnCloudinary(avatarLocalpath)
  const coverImage = await uploadOnCloudinary(coverImageLocalPath);
 
- if(!avatar){
-    throw new ApiError(400,"Avatar file is required!")
- }
+//  if(!avatar){
+//     throw new ApiError(400,"Avatar file is required!")
+//  }
 
  // here we are created object
-
+ const UserId = `USER_${Date.now()}`;
  const createdAt = new Date();
  const updatedAt = new Date();
  const watchHistory = [];
@@ -72,7 +69,7 @@ const user=await User.create({
     createdAt,
     updatedAt,
     watchHistory,
-    avatar:avatar.url,
+   // avatar:avatar.url,
     coverImage:coverImage?.url || "",
  })
 
@@ -88,7 +85,7 @@ const user=await User.create({
    }
 
 
-return res.status(200).json(
+return res.status(201).json(
     new ApiResponse(201,createdUser,"User registered successfully")
 )
 
